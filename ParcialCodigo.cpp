@@ -46,6 +46,10 @@ class lista {
     void borrarPosicion(int pos);
     void Sumanum(int num);
     int largoLista();// retorno un valor numerico
+    void creaNumLista(int num);
+    int obtenerPos(int pos);
+    //void DOS(int numero);
+    //void CUATRO(int num1, int num2, int num3);
     
    private:
     pnodo primero;
@@ -221,7 +225,6 @@ void lista:: borrarPosicion(int pos){
      }
 
 }
- 
 
 void lista::Mostrar()
 {
@@ -241,7 +244,6 @@ void lista::Mostrar()
 		cout << endl;
    }
 }
-
 
  void lista::Sumanum(int num)
 {
@@ -269,8 +271,153 @@ void lista::Mostrar()
 	
 }
 
+void lista::creaNumLista(int num){
+	int numero = num;
+	while (numero!= 0){
+		InsertarInicio(numero%10);
+		numero = numero/10;
+	}
+}
+
+int cuentadigitos(int num){
+	int contador = 0;
+	if (num == 0){
+		return 0;
+	}
+	
+	else{
+		while (num != 0){
+			num = num/10;
+			contador++;		
+		}
+		return contador;
+	}
+}
+
+int lista::obtenerPos(int pos){
+	pnodo aux = primero;
+	int i = 0;
+	while (i<pos){
+		aux = aux->siguiente;
+		i++;
+	}
+	return aux->valor;
+}
+
+
+
+
+
+void DOS (int numero){
+	int num = abs(numero);
+	int cantidad = cuentadigitos(num);
+	
+	if (cantidad%5 != 0){
+		cout << "Error ejercicio DOS: el largo del numero recibido no es multiplo de 5. Su largo es: " << cantidad%5 << endl;;
+		return;
+	}
+	cout << "Numero original: " << numero << endl;
+	lista listilla;
+	while (num !=0){
+		listilla.InsertarInicio(num%10);
+		num = num/10;
+		
+		
+	}
+	
+}
+
+
+void CUATRO (int num1, int num2, int num3){
+	cout << "test" << endl;
+	int largo1 = cuentadigitos(num1);
+	int largo2 = cuentadigitos(num2);
+	int largo3 = cuentadigitos(num3);
+	cout << "test" << endl;
+	if (num1 < 0 or num2 < 0 or num3 < 0){
+		cout << "Error ejercicio CUATRO: uno de los 3 numeros dados no es positivo" << endl;
+		return;
+	}
+	else if (largo1%2 == 0 or largo2%2 == 0 or largo3%2 == 0){
+		cout << "Error ejercicio CUATRO: uno de los 3 numeros dados no es de largo impar" << endl;
+		return;
+	}
+	
+	else if (largo1 != largo2 or largo2 != largo3 or largo1 != largo3){
+		cout << "Error ejercicio CUATRO: los 3 numeros dados no son todos del mismo largo" << endl;
+		return;
+	}
+	
+	else{
+		cout << "test" << endl;
+		lista lista1;
+		lista lista2;
+		lista lista3;
+		cout << "test" << endl;
+		lista1.creaNumLista(num1);
+		lista2.creaNumLista(num2);
+		lista3.creaNumLista(num3);
+		
+		int largo = lista1.largoLista();
+		int mitad = largo/2;
+		
+
+		int i = 0;
+		cout << "test" << endl;
+		lista listilla;
+		cout << "=== NUMEROS ORIGINALES ===" << endl;
+		cout << "Primer numero: " << num1<< endl;
+		cout << "Segundo numero: " << num2<< endl;
+		cout << "Tercer numero: " << num3<< endl;
+		while (i < mitad){
+			int j = largo-1-i;
+			
+			listilla.InsertarFinal(101);
+			listilla.InsertarFinal(lista1.obtenerPos(mitad));
+			listilla.InsertarFinal(lista3.obtenerPos(i));
+			listilla.InsertarFinal(lista3.obtenerPos(j));
+			listilla.InsertarFinal(010);
+			
+			listilla.InsertarFinal(101);
+			listilla.InsertarFinal(lista3.obtenerPos(mitad));
+			listilla.InsertarFinal(lista1.obtenerPos(i));
+			listilla.InsertarFinal(lista1.obtenerPos(j));
+			listilla.InsertarFinal(010);
+			
+			listilla.InsertarFinal(101);
+			listilla.InsertarFinal(lista1.obtenerPos(mitad));
+			listilla.InsertarFinal(lista2.obtenerPos(i));
+			listilla.InsertarFinal(lista2.obtenerPos(mitad));
+			listilla.InsertarFinal(010);
+			
+			listilla.InsertarFinal(101);
+			listilla.InsertarFinal(lista3.obtenerPos(mitad));
+			listilla.InsertarFinal(lista2.obtenerPos(j));
+			listilla.InsertarFinal(lista2.obtenerPos(mitad));
+			listilla.InsertarFinal(010);
+			
+			i++;
+			
+			
+		}
+		listilla.Mostrar();
+		
+		// 
+		
+		
+		
+	}
+	
+	
+}
+
+
+
+
+
 int main()
 {
+	/*
    lista Lista;//instancia null
    
     
@@ -283,42 +430,17 @@ int main()
    cout<<endl;
    cout<<endl;
    cout << Lista.largoLista();
-   
- /*  Lista.InsertarFinal(11);
-   Lista.InsertarPos(5, 1);
-   Lista.InsertarPos(6, 4);*/
 
-   /*Lista.InsertarInicio(30);
-   Lista.InsertarInicio(1);   
-   Lista.InsertarFinal(5);
-   Lista.InsertarPos(1, 3);*/
-//   Lista.Mostrar();
- //  Lista.borrarPosicion(4);
-  // Lista.Mostrar();
- /*  Lista.BorrarInicio();
-      Lista.Mostrar();
-   Lista.BorrarFinal();
-      Lista.Mostrar();
-   Lista.borrarPosicion(3);
-   Lista.Mostrar();
-  
-
-   cout << "Lista de elementos:" << endl;
-   Lista.Primero();
-   Lista.Primero();
-   Lista.Ultimo();
-  
-   Lista.BorrarFinal();
-   //Lista.Borrar(15);
-  // Lista.Borrar(45);
-   //Lista.Borrar(30);
-   //Lista.Borrar(40);
-   
-   Lista.Mostrar();
-   Lista.~lista();
-   Lista.Mostrar();*/
    Lista.~lista();
    cin.get();
+   
+   */
+   cout << "hola" << endl;
+   int num1 = 3123590;
+   int num2 = 8901285;
+   int num3 = 4357623;
+   
+   CUATRO(num1,num2,num3);
    return 0;
 }
 
