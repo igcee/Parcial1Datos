@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 class nodo { // Constructores
@@ -305,7 +306,84 @@ int lista::obtenerPos(int pos){
 }
 
 
+void UNO(int num1, int num2){
 
+	int n1 = num1;
+	if (n1 < 0){
+		n1 = -n1;
+	}
+	int n2 = num2;
+	if (n2 < 0){
+		n2 = -n2;
+	}
+	lista lista1;
+	lista lista2;
+	lista1.creaNumLista(n1);
+	if (lista1.ListaVacia()){
+		lista1.InsertarInicio(0);
+	}
+	lista2.creaNumLista(n2);
+	if (lista2.ListaVacia()){
+		lista2.InsertarInicio(0);
+	}
+	int n = lista1.largoLista();
+	if (n != lista2.largoLista()){
+		cout << "Error ejercicio UNO: los numeros no tienen el mismo largo" << endl;
+		return;
+	}
+	cout << "=== NUMEROS ORIGINALES ===" << endl;
+	cout << "Primer numero: " << num1 << endl;
+	cout << "Segundo numero: " << num2 << endl;
+	cout << "Lista1: ";
+	lista1.Mostrar();
+	cout << "Lista2: ";
+	lista2.Mostrar();
+
+	lista listaNueva;
+	int k = 0;
+	while (k < 2*n){
+		int pos;
+		if (k < n){
+			pos = k;
+		}
+		else{
+			pos = 2*n - 1 - k;
+		}
+		int centro;
+		int inicio;
+		int fin;
+		if (k%2 == 0){
+			centro = lista1.obtenerPos(pos);
+			inicio = 101;
+			fin = -101;
+		}
+		else{
+			centro = lista2.obtenerPos(pos);
+			inicio = -202;
+			fin = 202;
+		}
+		int x = centro + 1;
+		int y = centro - 1;
+		listaNueva.InsertarFinal(inicio);
+		listaNueva.InsertarFinal(x);
+		listaNueva.InsertarFinal(centro);
+		listaNueva.InsertarFinal(x + centro - y);
+		listaNueva.InsertarFinal(y);
+		listaNueva.InsertarFinal(fin);
+		k++;
+	}
+	cout << "=== LISTA NUEVA ===" << endl;
+	k = 0;
+	while (k < 2*n){
+		int c = 0;
+		while (c < 6){
+			cout << listaNueva.obtenerPos(k*6 + c) << "-> ";
+			c++;
+		}
+		cout << endl;
+		k++;
+	}
+}
 
 
 void DOS (int numero){
@@ -327,6 +405,45 @@ void DOS (int numero){
 	
 }
 
+void TRES(lista &L){
+	int n = L.largoLista();
+	if (n == 0 or n%2 == 0){
+		cout << "Error ejercicio TRES: la lista debe tener un largo impar" << endl;
+		return;
+	}
+	cout << "=== LISTA ORIGINAL ===" << endl;
+	L.Mostrar();
+
+	lista LNueva;
+	int i = 0;
+	while (i < n){
+		int posSuma = (i + 2) % n;
+		int posResta = (i - 1 + n) % n;
+		int resultado = L.obtenerPos(i) + L.obtenerPos(posSuma) - L.obtenerPos(posResta);
+		if (i%2 == 0){
+			LNueva.InsertarFinal(101);
+			LNueva.InsertarFinal(resultado);
+			LNueva.InsertarFinal(-101);
+		}
+		else{
+			LNueva.InsertarFinal(-202);
+			LNueva.InsertarFinal(resultado);
+			LNueva.InsertarFinal(202);
+		}
+		i++;
+	}
+	cout << "=== LISTA NUEVA ===" << endl;
+	i = 0;
+	while (i < n){
+		int c = 0;
+		while (c < 3){
+			cout << LNueva.obtenerPos(i*3 + c) << "-> ";
+			c++;
+		}
+		cout << endl;
+		i++;
+	}
+}
 
 void CUATRO (int num1, int num2, int num3){
 	cout << "test" << endl;
@@ -441,6 +558,18 @@ int main()
    int num3 = 4357623;
    
    CUATRO(num1,num2,num3);
+   
+   //prueba ejercicios 1 - 3
+	UNO(612345, 107895);
+
+   lista listaTres;
+   listaTres.InsertarFinal(6);
+   listaTres.InsertarFinal(1);
+   listaTres.InsertarFinal(5);
+   listaTres.InsertarFinal(8);
+   listaTres.InsertarFinal(9);
+   TRES(listaTres);
+
    return 0;
 }
 
